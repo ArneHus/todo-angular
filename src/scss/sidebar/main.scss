@@ -1,0 +1,51 @@
+@import "./variables";
+@import "./animation";
+@import "./sidebar-wrapper";
+
+body {
+    font-size: .9rem;
+}
+
+/*----------------page-wrapper----------------*/
+
+.page-wrapper {
+    height: 100vh;
+
+    .page-content {
+      
+        width: 100%;
+        transition: margin-left .3s ease;
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 998;
+            background: #000;
+            opacity: .5;
+            display: none;
+        }
+    }
+
+    &.toggled {
+
+        .sidebar-wrapper {
+            left: 0px;
+        }
+
+        .page-content {
+            @media screen and (min-width: 768px) {
+                margin-left: $sidebar-width;
+            }
+
+            .overlay {
+                @media screen and (max-width: 768px) {
+                    display: block;
+                }
+            }
+        }
+    }
+
+}
