@@ -29,68 +29,83 @@
                   </a>
               </li>
               <hr>
-              <li class="sidebar-dropdown">
+              <li class="sidebar-dropdown" (click)="openDropdown($event)">
                   <a href="#">
-                    <i class="fas fa-sort-down"></i>
+                      <i class="fas fa-sort-down"></i>
+                      <i class="fas fa-minus hidden"></i>
                       <span class="menu-text">Werk</span>
                       <span class="badge badge-pill">10</span>
                   </a>
                   <div class="sidebar-submenu">
-                      <ul>
-                          <li>
-                              <a href="#">Dashboard 1
-                                  <span class="badge badge-pill badge-success">Pro</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="#">Dashboard 2</a>
-                          </li>
-                          <li>
-                              <a href="#">Dashboard 3</a>
-                          </li>
-                      </ul>
-                  </div>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-chevron-right"></i>
+                                <span>Angular</span>
+                                <span class="badge badge-pill">3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                              <i class="fas fa-chevron-right"></i>
+                              <span>React</span>
+                              <span class="badge badge-pill">4</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
               </li>
-              <li class="sidebar-dropdown">
-                  <a href="#">
-                      <i class="fas fa-sort-down"></i>
-                      <span class="menu-text">School</span>
-                      <span class="badge badge-pill">7</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                      <ul>
-                          <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <a href="#">Angular</a>
-                            <span class="badge badge-pill">3</span>
-                          </li>
-                          <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <a href="#">React</a>
-                            <span class="badge badge-pill">4</span>
-                          </li>
-                      </ul>
-                  </div>
-              </li>
-              <li class="sidebar-dropdown">
-                  <a href="#">
+              <li class="sidebar-dropdown" (click)="openDropdown($event)">
+                <a href="#">
                     <i class="fas fa-sort-down"></i>
+                    <i class="fas fa-minus hidden"></i>
+                    <span class="menu-text">School</span>
+                    <span class="badge badge-pill">7</span>
+                </a>
+                <div class="sidebar-submenu">
+                  <ul>
+                      <li>
+                          <a href="#">
+                              <i class="fas fa-chevron-right"></i>
+                              <span>Angular</span>
+                              <span class="badge badge-pill">3</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                            <i class="fas fa-chevron-right"></i>
+                            <span>React</span>
+                            <span class="badge badge-pill">4</span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+              </li>
+              <li class="sidebar-dropdown" (click)="openDropdown($event)">
+                <a href="#">
+                    <i class="fas fa-sort-down"></i>
+                    <i class="fas fa-minus hidden"></i>
                     <span class="menu-text">Thuis</span>
                     <span class="badge badge-pill">8</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                      <ul>
-                          <li>
-                              <a href="#">General</a>
-                          </li>
-                          <li>
-                              <a href="#">Panels</a>
-                          </li>
-                          <li>
-                              <a href="#">Tables</a>
-                          </li>
-                      </ul>
-                  </div>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-chevron-right"></i>
+                                <span>Angular</span>
+                                <span class="badge badge-pill">3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                              <i class="fas fa-chevron-right"></i>
+                              <span>React</span>
+                              <span class="badge badge-pill">4</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
               </li>
               <li>
                 <a href="#">
