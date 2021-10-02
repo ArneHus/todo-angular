@@ -1,0 +1,25 @@
+@import '../../scss/variables';
+
+.task {
+  background-color: #fff;
+  width: 80%;
+  margin-bottom: 10px;
+
+  p {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    font-family: $font-family-sans-serif;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+
+  .important {
+    text-align: right;
+    margin-right: 30px;
+  }
+
+  .checkmark {
+    text-align: right;
+  }
+}
