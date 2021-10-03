@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as $ from "jquery";
+import { Category } from '../category';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +10,14 @@ import * as $ from "jquery";
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  @Input() category: Category = {name: "", lists: []};
+
+  categories: Category[] = [];
+
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.categoryService.getCategories().subscribe(result => this.categories = result);
   }
 
   openDropdown(event: any){

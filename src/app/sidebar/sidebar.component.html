@@ -11,109 +11,50 @@
                   <a href="#">
                       <i class="far fa-calendar-alt"></i>
                       <span class="menu-text">Overzicht</span>
-                      <span class="badge badge-pill">25</span>
+                      <span class="badge badge-pill">{{ categories | totalCount }}</span>
                   </a>
               </li>
               <li>
                   <a href="#">
                       <i class="far fa-star"></i>
                       <span class="menu-text">Belangrijk</span>
-                      <span class="badge badge-pill">2</span>
+                      <span class="badge badge-pill">{{ categories | totalImportantCount }}</span>
                   </a>
               </li>
               <li>
                   <a href="#">
                       <i class="fas fa-calendar-week"></i>
                       <span class="menu-text">Deze week</span>
-                      <span class="badge badge-pill">8</span>
+                      <span class="badge badge-pill">{{ categories | totalThisWeekCount }}</span>
                   </a>
               </li>
               <hr>
-              <li class="sidebar-dropdown" (click)="openDropdown($event)">
-                  <a href="#">
-                      <i class="fas fa-sort-down"></i>
-                      <i class="fas fa-minus hidden"></i>
-                      <span class="menu-text">Werk</span>
-                      <span class="badge badge-pill">10</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-chevron-right"></i>
-                                <span>Angular</span>
-                                <span class="badge badge-pill">3</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                              <i class="fas fa-chevron-right"></i>
-                              <span>React</span>
-                              <span class="badge badge-pill">4</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown" (click)="openDropdown($event)">
+              <li *ngFor="let category of categories" class="sidebar-dropdown" (click)="openDropdown($event)">
                 <a href="#">
                     <i class="fas fa-sort-down"></i>
                     <i class="fas fa-minus hidden"></i>
-                    <span class="menu-text">School</span>
-                    <span class="badge badge-pill">7</span>
+                    <span class="menu-text">{{ category.name }}</span>
+                    <span class="badge badge-pill">{{ category | todoCount }}</span>
                 </a>
                 <div class="sidebar-submenu">
                   <ul>
-                      <li>
+                      <li *ngFor="let list of category.lists">
                           <a href="#">
                               <i class="fas fa-chevron-right"></i>
-                              <span>Angular</span>
-                              <span class="badge badge-pill">3</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                            <i class="fas fa-chevron-right"></i>
-                            <span>React</span>
-                            <span class="badge badge-pill">4</span>
+                              <span>{{ list.name }}</span>
+                              <span class="badge badge-pill">{{ list.todo.length }}</span>
                           </a>
                       </li>
                   </ul>
               </div>
-              </li>
-              <li class="sidebar-dropdown" (click)="openDropdown($event)">
-                <a href="#">
-                    <i class="fas fa-sort-down"></i>
-                    <i class="fas fa-minus hidden"></i>
-                    <span class="menu-text">Thuis</span>
-                    <span class="badge badge-pill">8</span>
-                </a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-chevron-right"></i>
-                                <span>Angular</span>
-                                <span class="badge badge-pill">3</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                              <i class="fas fa-chevron-right"></i>
-                              <span>React</span>
-                              <span class="badge badge-pill">4</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="far fa-plus-square"></i>
-                  <span class="menu-text">Nieuwe categorie</span>
-                </a>
-              </li>
-              <hr>
+            </li>
+            <li>
+              <a href="#">
+                <i class="far fa-plus-square"></i>
+                <span class="menu-text">Nieuwe categorie</span>
+              </a>
+            </li>
+            <hr>
           </ul>
       </div>
   </div>
