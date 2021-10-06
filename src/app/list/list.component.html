@@ -1,6 +1,4 @@
 <div class="list">
-  <h2 class="list-title">Angular</h2>
-  <app-task></app-task>
-  <app-task></app-task>
-  <app-task></app-task>
+  <h2 class="list-title">{{ list.name }}</h2>
+  <app-task *ngFor="let task of list.todo" [task]="task"></app-task>
 </div>

@@ -1,5 +1,5 @@
 <div class="page-wrapper toggled" id="page-wrapper">
-  <app-sidebar></app-sidebar>
+  <app-sidebar (changedList)='setLists($event)'></app-sidebar>
   <!-- page-content  -->
   <main class="page-content">
       <div class="container-fluid p-5">
@@ -8,14 +8,14 @@
                   <h2>
                     <span class="hr">
                       <i class="fas fa-bars" (click)='toggle_sidebar()'></i>
-                      <span> School</span>
+                      <span> {{ categoryName }}</span>
                     </span>
                   </h2>
               </div>
           </div>
           <div class="row">
             <div class="col-10">
-              <app-list></app-list>
+              <app-list *ngFor="let list of lists" [list]="list"></app-list>
             </div>
           </div>
       </div>

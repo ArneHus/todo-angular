@@ -8,7 +8,7 @@
       <div class="sidebar-item sidebar-menu">
           <ul>
               <li>
-                  <a href="#">
+                  <a href="#" (click)='allLists()'>
                       <i class="far fa-calendar-alt"></i>
                       <span class="menu-text">Overzicht</span>
                       <span class="badge badge-pill">{{ categories | totalCount }}</span>
@@ -29,16 +29,18 @@
                   </a>
               </li>
               <hr>
-              <li *ngFor="let category of categories" class="sidebar-dropdown" (click)="openDropdown($event)">
-                <a href="#">
+              <li *ngFor="let category of categories" class="sidebar-dropdown">
+                <a href="#" (click)='changeList($event, category, undefined)'>
+                  <span (click)="openDropdown($event)">
                     <i class="fas fa-sort-down"></i>
                     <i class="fas fa-minus hidden"></i>
-                    <span class="menu-text">{{ category.name }}</span>
-                    <span class="badge badge-pill">{{ category | todoCount }}</span>
+                  </span>
+                  <span class="menu-text">{{ category.name }}</span>
+                  <span class="badge badge-pill">{{ category | todoCount }}</span>
                 </a>
                 <div class="sidebar-submenu">
                   <ul>
-                      <li *ngFor="let list of category.lists">
+                      <li *ngFor="let list of category.lists" (click)='changeList($event, category, list)'>
                           <a href="#">
                               <i class="fas fa-chevron-right"></i>
                               <span>{{ list.name }}</span>
