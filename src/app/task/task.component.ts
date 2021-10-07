@@ -10,6 +10,14 @@ export class TaskComponent implements OnInit {
 
   @Input() task: Task = { task: "", isImportant: false, finishDate: "", finished: false };
 
+  setImportant(id: number){
+    if (this.task.isImportant){
+      this.task.isImportant = false;
+    } else {
+      this.task.isImportant = true;
+    }
+  }
+
   constructor() { }
 
   ngOnInit(): void {

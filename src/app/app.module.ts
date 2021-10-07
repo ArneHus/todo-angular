@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Components
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,10 @@
 <div class="task">
   <div class="row">
     <div class="col-1">
-      <p class="checkmark"><i class="far fa-circle"></i></p>
+      <p>
+        <i class="fas fa-grip-vertical dragger"></i>
+        <i class="far fa-circle checkmark"></i>
+      </p>
     </div>
     <div class="col-7">
       <p>{{ task.task }}</p>
@@ -10,8 +13,8 @@
       <p class="date">{{ task.finishDate }}</p>
     </div>
     <div class="col-1">
-      <p class="important" *ngIf="!task.isImportant"><i class="far fa-star"></i></p>
-      <p class="important" *ngIf="task.isImportant"><i class="fas fa-star"></i></p>
+      <p class="important" *ngIf="!task.isImportant" (click)="setImportant(1)"><i class="far fa-star"></i></p>
+      <p class="important" *ngIf="task.isImportant" (click)="setImportant(1)"><i class="fas fa-star"></i></p>
     </div>
   </div>
 </div>
