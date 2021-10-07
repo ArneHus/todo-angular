@@ -34,6 +34,16 @@ export class SidebarComponent implements OnInit {
     this.changedList.emit({allCategories});
   }
 
+  allImportantLists() {
+    var allImportantCategories = true;
+    this.changedList.emit({allImportantCategories});
+  }
+
+  allWeeklyLists() {
+    var allWeeklyCategories = true;
+    this.changedList.emit({allWeeklyCategories});
+  }
+
   openDropdown(event: any){
     //Checken of er niet geklikt is op een a of ul tag
     if (event.target.tagName != 'A' && event.target.tagName != 'UL'){
