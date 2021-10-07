@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { List } from '../list';
 
@@ -9,6 +10,10 @@ import { List } from '../list';
 export class ListComponent implements OnInit {
 
   @Input() list: List = { name: "", todo: [] };
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.list.todo, event.previousIndex, event.currentIndex);
+  }
 
   constructor() { }
 

@@ -8,3 +8,5 @@
 
 //custom code/partials
 @import "scss/sidebar/main.scss";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -21,7 +21,16 @@
   }
 
   .checkmark {
-    text-align: right;
+    margin-left: 10px;
+    display: inline-block;
+  }
+
+  .dragger {
+    margin-left: 5px;
+    color: darkgray;
+    font-size: 15px;
+    cursor: grab;
+    display: inline-block;
   }
 
   .date {
