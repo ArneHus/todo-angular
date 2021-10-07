@@ -15,14 +15,14 @@
                   </a>
               </li>
               <li>
-                  <a href="#">
+                  <a href="#" (click)='allImportantLists()'>
                       <i class="far fa-star"></i>
                       <span class="menu-text">Belangrijk</span>
                       <span class="badge badge-pill">{{ categories | totalImportantCount }}</span>
                   </a>
               </li>
               <li>
-                  <a href="#">
+                  <a href="#" (click)='allWeeklyLists()'>
                       <i class="fas fa-calendar-week"></i>
                       <span class="menu-text">Deze week</span>
                       <span class="badge badge-pill">{{ categories | totalThisWeekCount }}</span>
