@@ -49,11 +49,13 @@ export class AppComponent {
     } else {
       //Er wordt maar één lijst doorgegeven
       if (event.singleList != undefined){
+        event.singleList.todo = event.singleList.todo.sort(this.sortOnDateFunction)
         this.lists.push(event.singleList);
         this.categoryName = event.category.name;
       //Er wordt één categorie doorgegeven
       } else {
         event.category.lists.forEach((list: List) => {
+          list.todo = list.todo.sort(this.sortOnDateFunction)
           this.lists.push(list);
         });
         this.categoryName = event.category.name;
@@ -89,6 +91,7 @@ export class AppComponent {
 
         //Enkel lijsten die niet leeg zijn laten zien
         if (newList.todo.length != 0){
+          newList.todo = newList.todo.sort(this.sortOnDateFunction)
           this.lists.push(newList);
         }
       });
@@ -119,6 +122,7 @@ export class AppComponent {
 
         //Enkel lijsten die niet leeg zijn laten zien
         if (newList.todo.length != 0){
+          newList.todo = newList.todo.sort(this.sortOnDateFunction)
           this.lists.push(newList);
         }
       });
@@ -137,5 +141,5 @@ export class AppComponent {
     var dateA = moment(a.finishDate.toString(), "DD/MM/yyyy").toDate();
     var dateB = moment(b.finishDate.toString(), "DD/MM/yyyy").toDate();
     return dateA > dateB ? 1 : -1;
-};
+  };
 }
