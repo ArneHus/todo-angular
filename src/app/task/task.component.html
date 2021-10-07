@@ -10,8 +10,8 @@
       <p class="date">{{ task.finishDate }}</p>
     </div>
     <div class="col-1">
-      <p class="important" *ngIf="!task.isImportant"><i class="far fa-star"></i></p>
-      <p class="important" *ngIf="task.isImportant"><i class="fas fa-star"></i></p>
+      <p class="important" *ngIf="!task.isImportant" (click)="setImportant(1)"><i class="far fa-star"></i></p>
+      <p class="important" *ngIf="task.isImportant" (click)="setImportant(1)"><i class="fas fa-star"></i></p>
     </div>
   </div>
 </div>
