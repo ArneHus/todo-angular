@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { List } from '../list';
 import { Task } from '../task';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-list',
@@ -20,9 +21,17 @@ export class ListComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.list.todo, event.previousIndex, event.currentIndex);
+    var pos = 1;
+    this.list.todo.forEach(task => {
+      task.orderValue = pos;
+      this.taskService.putTask(task.id, task).subscribe(result => {
+        //Task is updated
+      });
+      pos++;
+    });
   }
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
   }
