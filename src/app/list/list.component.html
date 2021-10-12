@@ -1,6 +1,13 @@
 <div class="list">
-  <h2 class="list-title">{{ list.name }}</h2>
+  <div class="row">
+    <h2 class="list-title">{{ list.name }}</h2>
+    <select name="sort" (change)='selectFilter($event)'>
+      <option value="date_asc">Date Asc</option>
+      <option value="date_desc">Date Desc</option>
+      <option value="own_order">Own order</option>
+    </select>
+  </div>
   <div cdkDropList (cdkDropListDropped)='drop($event)'>
-    <app-task *ngFor="let task of list.todo" [task]="task" cdkDrag></app-task>
+    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" cdkDrag></app-task>
   </div>
 </div>

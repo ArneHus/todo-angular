@@ -4,6 +4,7 @@ import { Task } from './task';
 import { CategoryService } from './category.service';
 import { Category } from './category';
 import * as moment from 'moment';
+import { ListService } from './list.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
   categoryName: string = "";
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private listService: ListService) {}
 
   setLists(event: any){
     this.lists = [];
@@ -54,21 +55,26 @@ export class AppComponent {
         this.categoryName = event.category.name;
       //Er wordt één categorie doorgegeven
       } else {
-        event.category.lists.forEach((list: List) => {
-          list.todo = list.todo.sort(this.sortOnDateFunction)
-          this.lists.push(list);
+        this.listService.getListsFromCategory(event.category.id).subscribe(result => {
+          result.forEach((list: List) => {
+            list.todo = list.todo.sort(this.sortOnDateFunction)
+            this.lists.push(list);
+          });
+          this.categoryName = event.category.name;
         });
-        this.categoryName = event.category.name;
       }
     }
   }
 
   listCategories(){
-    //Alle lijsten voor alle categorien in lists steken
     this.categories.forEach(category => {
-      category.lists.forEach(list => {
-        list.todo = list.todo.sort(this.sortOnDateFunction)
-        this.lists.push(list);
+      this.listService.getListsFromCategory(category.id).subscribe(result => {
+        var lists = result
+        console.log(lists);
+        lists.forEach(list => {
+          list.todo = list.todo.sort(this.sortOnDateFunction)
+          this.lists.push(list);
+        });
       });
     });
   }
@@ -76,24 +82,27 @@ export class AppComponent {
   listImportantCategories(){
     //Alle lijsten voor alle categorien in lists steken
     this.categories.forEach(category => {
-      category.lists.forEach(list => {
+      this.listService.getListsFromCategory(category.id).subscribe(result => {
+        var lists = result
+        lists.forEach(list => {
 
-        //Nieuw lijstje maken waar alle belangrijke items inzitten
-        var newList: List = {name: "", todo: []};
-        newList.name = list.name
+          //Nieuw lijstje maken waar alle belangrijke items inzitten
+          var newList: List = { id: 0, name: "", categoryId: 0, todo: [] };
+          newList.name = list.name
 
-        //Belangrijke items toevoegen aan nieuwe lijst
-        list.todo.forEach(todo => {
-          if (todo.isImportant){
-            newList.todo.push(todo);
+          //Belangrijke items toevoegen aan nieuwe lijst
+          list.todo.forEach(todo => {
+            if (todo.isImportant){
+              newList.todo.push(todo);
+            }
+          });
+
+          //Enkel lijsten die niet leeg zijn laten zien
+          if (newList.todo.length != 0){
+            newList.todo = newList.todo.sort(this.sortOnDateFunction)
+            this.lists.push(newList);
           }
         });
-
-        //Enkel lijsten die niet leeg zijn laten zien
-        if (newList.todo.length != 0){
-          newList.todo = newList.todo.sort(this.sortOnDateFunction)
-          this.lists.push(newList);
-        }
       });
     });
   }
@@ -101,30 +110,33 @@ export class AppComponent {
   listWeeklyCategories(){
     //Alle lijsten voor alle categorien in lists steken
     this.categories.forEach(category => {
-      category.lists.forEach(list => {
+      this.listService.getListsFromCategory(category.id).subscribe(result => {
+        var lists = result
+        lists.forEach(list => {
 
-        //Nieuw lijstje maken waar alle belangrijke items inzitten
-        var newList: List = {name: "", todo: []};
-        newList.name = list.name
+          //Nieuw lijstje maken waar alle belangrijke items inzitten
+          var newList: List = { id: 0, name: "", categoryId: 0, todo: [] };
+          newList.name = list.name
 
-        //Belangrijke items toevoegen aan nieuwe lijst
-        list.todo.forEach(todo => {
-          let publishDate = moment(todo.finishDate.toString(), "DD/MM/yyyy").toDate();
-          var nextWeek = new Date();
-          nextWeek.setDate(nextWeek.getDate() + 7);
-          var yesterday = new Date();
-          yesterday.setDate(yesterday.getDate() - 1);
+          //Belangrijke items toevoegen aan nieuwe lijst
+          list.todo.forEach(todo => {
+            let publishDate = moment(todo.finishDate.toString(), "DD/MM/yyyy").toDate();
+            var nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
 
-          if (publishDate < nextWeek && publishDate > yesterday){
-            newList.todo.push(todo);
+            if (publishDate < nextWeek && publishDate > yesterday){
+              newList.todo.push(todo);
+            }
+          });
+
+          //Enkel lijsten die niet leeg zijn laten zien
+          if (newList.todo.length != 0){
+            newList.todo = newList.todo.sort(this.sortOnDateFunction)
+            this.lists.push(newList);
           }
         });
-
-        //Enkel lijsten die niet leeg zijn laten zien
-        if (newList.todo.length != 0){
-          newList.todo = newList.todo.sort(this.sortOnDateFunction)
-          this.lists.push(newList);
-        }
       });
     });
   }

@@ -1,7 +1,9 @@
-import { OnInit, Component, EventEmitter, Output } from '@angular/core';
+import { OnInit, Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import * as $ from "jquery";
+import { Subscription } from 'rxjs';
 import { Category } from '../category';
 import { CategoryService } from '../category.service';
+import { ListService } from '../list.service';
 import { List } from '../list';
 
 @Component({
@@ -12,12 +14,29 @@ import { List } from '../list';
 export class SidebarComponent implements OnInit {
 
   categories: Category[] = [];
+  lists: Array<List> = [];
+  categorySubscription$: Subscription = new Subscription();
+  listSubscription$: Subscription = new Subscription();
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private listService: ListService) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(result => this.categories = result);
-    this.allLists();
+    //Alle categorieen ophalen
+    this.categorySubscription$ = this.categoryService.getCategories().subscribe(result =>
+      {
+        this.categories = result
+        //Als alle categorieen opgehaald zijn, haal dan alle lijsten op
+        this.listSubscription$ = this.listService.getLists().subscribe(result =>
+        {
+          this.lists = result;
+        });
+        this.allLists();
+      });
+  }
+
+  NgOnDestroy(): void {
+    this.categorySubscription$.unsubscribe();
+    this.listSubscription$.unsubscribe();
   }
 
   @Output()
@@ -67,5 +86,4 @@ export class SidebarComponent implements OnInit {
       }
     }
   }
-
 }

@@ -15,7 +15,8 @@ import { TaskComponent } from './task/task.component';
 import { TodoCountPipe } from '../pipes/todo-count.pipe';
 import { TotalCountPipe } from '../pipes/total-count.pipe';
 import { TotalImportantCountPipe } from '../pipes/total-important-count.pipe';
-import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
+import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe';
+import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe'
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
     TotalCountPipe,
     TotalImportantCountPipe,
     TotalThisWeekCountPipe,
+    FilterListsByCategoryPipe,
   ],
   imports: [
     BrowserModule,

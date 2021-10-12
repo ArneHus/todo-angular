@@ -13,6 +13,10 @@ export class CategoryService {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.httpClient.get<Category[]>("http://localhost:3000/categories");
+    return this.httpClient.get<Category[]>("http://localhost:3000/categories?_sort=name&order=asc");
+  }
+
+  getCategoryById(id: number): Observable<Category> {
+    return this.httpClient.get<Category>("http://localhost:3000/categories/" + id + "?_sort=name&order=asc");
   }
 }
