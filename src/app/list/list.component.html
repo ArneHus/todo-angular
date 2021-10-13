@@ -8,6 +8,9 @@
     </select>
   </div>
   <div cdkDropList (cdkDropListDropped)='drop($event)'>
-    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" cdkDrag></app-task>
+    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" cdkDrag>
+      <i *ngIf='draggable' class="fas fa-grip-vertical dragger" cdkDragHandle></i>
+      <div *ngIf='!draggable' cdkDragHandle></div>
+    </app-task>
   </div>
 </div>
