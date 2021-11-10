@@ -5,6 +5,8 @@ import { Category } from '../category';
 import { CategoryService } from '../category.service';
 import { ListService } from '../list.service';
 import { List } from '../list';
+import { MatDialog } from '@angular/material/dialog';
+import { NewCategoryDialogComponent } from '../new-category-dialog/new-category-dialog.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +20,7 @@ export class SidebarComponent implements OnInit {
   categorySubscription$: Subscription = new Subscription();
   listSubscription$: Subscription = new Subscription();
 
-  constructor(private categoryService: CategoryService, private listService: ListService) { }
+  constructor(private categoryService: CategoryService, private listService: ListService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     //Alle categorieen ophalen
@@ -61,6 +63,26 @@ export class SidebarComponent implements OnInit {
   allWeeklyLists() {
     var allWeeklyCategories = true;
     this.changedList.emit({allWeeklyCategories});
+  }
+
+  openNewCategoryDialog(){
+    let dialogRef = this.matDialog.open(NewCategoryDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshCategories();
+    });
+  }
+
+  public refreshCategories(){
+    this.categorySubscription$ = this.categoryService.getCategories().subscribe(result =>
+    {
+      this.categories = result
+      console.log(result)
+      //Als alle categorieen opgehaald zijn, haal dan alle lijsten op
+      this.listSubscription$ = this.listService.getLists().subscribe(result =>
+      {
+        this.lists = result;
+      });
+    });
   }
 
   openDropdown(event: any){

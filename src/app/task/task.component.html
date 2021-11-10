@@ -1,20 +1,39 @@
 <div class="task">
-  <div class="row">
-    <div class="col-1">
-      <p>
-        <ng-content></ng-content>
-        <i class="far fa-circle checkmark"></i>
-      </p>
+  <form (ngSubmit)="onSubmit()" [formGroup]="taskForm">
+    <div class="row">
+      <div class="col-1">
+        <p>
+          <ng-content></ng-content>
+          <i class="far fa-circle checkmark"></i>
+          <i class="far fa-save" *ngIf="isEditable" (click)="onSubmit()"></i>
+        </p>
+      </div>
+      <div class="col-7">
+        <p *ngIf="!isEditable">{{ task.task }}</p>
+        <div class="form-group" *ngIf="isEditable">
+          <input type="text" class="form-control" id="task" name="task" placeholder="Taak" formControlName="task" minlength="2">
+        </div>
+      </div>
+      <div class="col-3">
+        <p class="date" *ngIf="!isEditable">{{ task.finishDate }}</p>
+        <div class="form-group" *ngIf="isEditable">
+          <input type="date" class="form-control" id="finishDate" name="finishDate" formControlName="finishDate" minlength="2">
+        </div>
+      </div>
+      <div class="col-1">
+        <p class="important" *ngIf="!task.isImportant"><i class="far fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu"></i></p>
+        <p class="important" *ngIf="task.isImportant"><i class="fas fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu"></i></p>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editTask()">
+          <i class="fas fa-edit"></i>
+          <span> Bewerken</span>
+        </button>
+        <button mat-menu-item (click)="deleteTask()">
+          <i class="fas fa-trash-alt"></i>
+          <span> Verwijderen</span>
+        </button>
+      </mat-menu>
     </div>
-    <div class="col-7">
-      <p>{{ task.task }}</p>
-    </div>
-    <div class="col-3">
-      <p class="date">{{ task.finishDate }}</p>
-    </div>
-    <div class="col-1">
-      <p class="important" *ngIf="!task.isImportant" (click)="setImportant(1)"><i class="far fa-star"></i></p>
-      <p class="important" *ngIf="task.isImportant" (click)="setImportant(1)"><i class="fas fa-star"></i></p>
-    </div>
-  </div>
+  </form>
 </div>

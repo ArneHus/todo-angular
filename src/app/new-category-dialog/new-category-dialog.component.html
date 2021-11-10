@@ -1,0 +1,14 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="categoryForm">
+  <div class="form-group">
+    <label for="category">Categorie</label>
+    <input type="text" class="form-control" id="category" name="category" placeholder="Naam" formControlName="category" minlength="2">
+  </div>
+  <p>Kies een kleur</p>
+  <color-circle (onChangeComplete)="setColor($event)" [colors]=possibleColors [color]=color></color-circle>
+
+  <mat-dialog-actions>
+    <button mat-dialog-close class="btn">Annuleren</button>
+    <button [mat-dialog-close]="false" class="btn" type="submit">Opslaan</button>
+  </mat-dialog-actions>
+
+</form>

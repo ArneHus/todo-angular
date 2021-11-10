@@ -9,7 +9,6 @@ export class FilterListsByCategoryPipe implements PipeTransform {
   transform(value: Array<List>, categoryId: number): List[] {
     var categoryLists: List[] = [];
     value.forEach(list => {
-      console.log(list.categoryId)
       if (list.categoryId == categoryId){
         categoryLists.push(list);
       }

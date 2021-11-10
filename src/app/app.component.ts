@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { List } from './list';
 import { Task } from './task';
 import { CategoryService } from './category.service';
 import { Category } from './category';
 import * as moment from 'moment';
 import { ListService } from './list.service';
+import { Subscription } from 'rxjs';
+import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +19,15 @@ export class AppComponent {
 
   title = 'todo';
   lists: Array<List> = [];
-  categoryName: string = "";
+  category: Category = {id: 0, name: "", color: ""};
   categories: Category[] = [];
+  showOptions = false;
+  categorySubscription$: Subscription = new Subscription();
+  listSubscription$: Subscription = new Subscription();
 
-  constructor(private categoryService: CategoryService, private listService: ListService) {}
+  @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
+
+  constructor(private categoryService: CategoryService, private listService: ListService, private matDialog: MatDialog) {}
 
   setLists(event: any){
     this.lists = [];
@@ -30,7 +39,9 @@ export class AppComponent {
         this.listCategories();
       });
 
-      this.categoryName = "Overzicht";
+      this.category.name = "Overzicht";
+      this.category.color = "#1EB7C3";
+      this.showOptions = false;
     } else if (event.allImportantCategories){
       //Alle categoriën ophalen
       this.categoryService.getCategories().subscribe(result => {
@@ -38,7 +49,9 @@ export class AppComponent {
         this.listImportantCategories();
       });
 
-      this.categoryName = "Belangrijk";
+      this.category.name = "Belangrijk";
+      this.category.color = "#FF0000";
+      this.showOptions = false;
     }  else if (event.allWeeklyCategories){
       //Alle categoriën ophalen
       this.categoryService.getCategories().subscribe(result => {
@@ -46,13 +59,16 @@ export class AppComponent {
         this.listWeeklyCategories();
       });
 
-      this.categoryName = "Deze week";
+      this.category.name = "Deze week";
+      this.category.color = "#1EB7C3";
+      this.showOptions = false;
     } else {
       //Er wordt maar één lijst doorgegeven
       if (event.singleList != undefined){
         event.singleList.todo = event.singleList.todo.sort(this.sortOnDateFunction)
         this.lists.push(event.singleList);
-        this.categoryName = event.category.name;
+        this.category = event.category;
+        this.showOptions = true;
       //Er wordt één categorie doorgegeven
       } else {
         this.listService.getListsFromCategory(event.category.id).subscribe(result => {
@@ -60,7 +76,8 @@ export class AppComponent {
             list.todo = list.todo.sort(this.sortOnDateFunction)
             this.lists.push(list);
           });
-          this.categoryName = event.category.name;
+          this.category = event.category;
+          this.showOptions = true;
         });
       }
     }
@@ -70,7 +87,6 @@ export class AppComponent {
     this.categories.forEach(category => {
       this.listService.getListsFromCategory(category.id).subscribe(result => {
         var lists = result
-        console.log(lists);
         lists.forEach(list => {
           list.todo = list.todo.sort(this.sortOnDateFunction)
           this.lists.push(list);
@@ -154,4 +170,29 @@ export class AppComponent {
     var dateB = moment(b.finishDate.toString(), "DD/MM/yyyy").toDate();
     return dateA > dateB ? 1 : -1;
   };
+
+  refreshSideBar(){
+    this.sidebar.refreshCategories();
+  }
+
+  addList(){
+
+  }
+
+  editCategoryDialog(){
+    let dialogRef = this.matDialog.open(NewCategoryDialogComponent, {
+      data: { category: this.category },
+    });
+
+    dialogRef.componentInstance.updatedCategory.subscribe((data: any) => {
+      this.sidebar.refreshCategories();
+      this.categoryService.getCategoryById(this.category.id).subscribe(result => {
+        this.category = result;
+      });
+    });
+  }
+
+  askDeleteCategory(){
+
+  }
 }
