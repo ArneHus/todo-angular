@@ -1,6 +1,7 @@
 import { List } from "./list";
 
 export interface Category {
+  id: number;
   name: string;
-  lists: Array<List>;
+  color: string;
 }

@@ -1,21 +1,36 @@
 <div class="page-wrapper toggled" id="page-wrapper">
-  <app-sidebar (changedList)='setLists($event)'></app-sidebar>
+  <app-sidebar (changedList)='setLists($event)' #sidebar></app-sidebar>
   <!-- page-content  -->
-  <main class="page-content">
+  <main class="page-content" [ngStyle]="{'background-color': category.color}">
       <div class="container-fluid p-5">
           <div class="row">
               <div class="col-12">
                   <h2>
                     <span class="hr">
                       <i class="fas fa-bars" (click)='toggle_sidebar()'></i>
-                      <span> {{ categoryName }}</span>
+                      <span> {{ category.name }} </span>
+                      <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu" *ngIf="showOptions"></i>
                     </span>
                   </h2>
               </div>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="addList()">
+                  <i class="far fa-plus-square"></i>
+                  <span> Nieuwe lijst</span>
+                </button>
+                <button mat-menu-item (click)="editCategoryDialog()">
+                  <i class="fas fa-edit"></i>
+                  <span> Bewerken</span>
+                </button>
+                <button mat-menu-item (click)="askDeleteCategory()">
+                  <i class="fas fa-trash-alt"></i>
+                  <span> Verwijderen</span>
+                </button>
+              </mat-menu>
           </div>
           <div class="row">
             <div class="col-10">
-              <app-list *ngFor="let list of lists" [list]="list"></app-list>
+              <app-list *ngFor="let list of lists" [list]="list" (updatedTask)="refreshSideBar()"></app-list>
             </div>
           </div>
       </div>

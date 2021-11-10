@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from './category';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,6 +13,24 @@ export class CategoryService {
   }
 
   getCategories(): Observable<Category[]> {
-    return this.httpClient.get<Category[]>("http://localhost:3000/categories");
+    return this.httpClient.get<Category[]>("http://localhost:3000/categories?_sort=name&order=asc");
+  }
+
+  getCategoryById(id: number): Observable<Category> {
+    return this.httpClient.get<Category>("http://localhost:3000/categories/" + id + "?_sort=name&order=asc");
+  }
+
+  postCategory(category: Category): Observable<Category> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this.httpClient.post<Category>("http://localhost:3000/categories", category, {headers: headers});
+  }
+
+  putCategory(id:number, category: Category): Observable<Category> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this.httpClient.put<Category>("http://localhost:3000/categories/" + id, category, {headers: headers});
   }
 }

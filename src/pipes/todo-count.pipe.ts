@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Category } from '../app/category';
+import { List } from '../app/list';
 
 @Pipe({
   name: 'todoCount'
 })
 export class TodoCountPipe implements PipeTransform {
 
-  transform(value: Category, ...args: unknown[]): number {
+  transform(value: List[]): number {
     var count = 0;
 
-    value.lists.forEach(list => {
+    value.forEach(list => {
       list.todo.forEach(todo => {
         count++;
       });

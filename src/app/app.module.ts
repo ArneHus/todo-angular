@@ -5,6 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+//Material
+import { MatMenuModule } from '@angular/material/menu';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ColorCircleModule } from 'ngx-color/circle';
+
 // Components
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -15,7 +21,10 @@ import { TaskComponent } from './task/task.component';
 import { TodoCountPipe } from '../pipes/todo-count.pipe';
 import { TotalCountPipe } from '../pipes/total-count.pipe';
 import { TotalImportantCountPipe } from '../pipes/total-important-count.pipe';
-import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
+import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe';
+import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe'
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +36,8 @@ import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
     TotalCountPipe,
     TotalImportantCountPipe,
     TotalThisWeekCountPipe,
+    FilterListsByCategoryPipe,
+    NewCategoryDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,8 +45,16 @@ import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe'
     BrowserAnimationsModule,
     HttpClientModule,
     DragDropModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    NgxMatColorPickerModule,
+    MatDialogModule,
+    ColorCircleModule
   ],
-  providers: [],
+  entryComponents: [
+    NewCategoryDialogComponent
+  ],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

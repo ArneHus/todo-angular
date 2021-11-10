@@ -8,10 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "api": "json-server --watch json-server-local\\db.json"
+    "api": "json-server --watch json-server-local\\db.json --routes json-server-local\\routes.json"
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/color-picker": "^6.0.0",
     "@angular/animations": "~12.0.5",
     "@angular/cdk": "^12.2.8",
     "@angular/common": "~12.0.5",
@@ -25,6 +26,7 @@
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
+    "ngx-color": "^7.3.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

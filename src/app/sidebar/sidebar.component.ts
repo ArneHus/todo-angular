@@ -1,8 +1,12 @@
-import { OnInit, Component, EventEmitter, Output } from '@angular/core';
+import { OnInit, Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import * as $ from "jquery";
+import { Subscription } from 'rxjs';
 import { Category } from '../category';
 import { CategoryService } from '../category.service';
+import { ListService } from '../list.service';
 import { List } from '../list';
+import { MatDialog } from '@angular/material/dialog';
+import { NewCategoryDialogComponent } from '../new-category-dialog/new-category-dialog.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +16,29 @@ import { List } from '../list';
 export class SidebarComponent implements OnInit {
 
   categories: Category[] = [];
+  lists: Array<List> = [];
+  categorySubscription$: Subscription = new Subscription();
+  listSubscription$: Subscription = new Subscription();
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private listService: ListService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(result => this.categories = result);
-    this.allLists();
+    //Alle categorieen ophalen
+    this.categorySubscription$ = this.categoryService.getCategories().subscribe(result =>
+      {
+        this.categories = result
+        //Als alle categorieen opgehaald zijn, haal dan alle lijsten op
+        this.listSubscription$ = this.listService.getLists().subscribe(result =>
+        {
+          this.lists = result;
+        });
+        this.allLists();
+      });
+  }
+
+  NgOnDestroy(): void {
+    this.categorySubscription$.unsubscribe();
+    this.listSubscription$.unsubscribe();
   }
 
   @Output()
@@ -44,6 +65,26 @@ export class SidebarComponent implements OnInit {
     this.changedList.emit({allWeeklyCategories});
   }
 
+  openNewCategoryDialog(){
+    let dialogRef = this.matDialog.open(NewCategoryDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshCategories();
+    });
+  }
+
+  public refreshCategories(){
+    this.categorySubscription$ = this.categoryService.getCategories().subscribe(result =>
+    {
+      this.categories = result
+      console.log(result)
+      //Als alle categorieen opgehaald zijn, haal dan alle lijsten op
+      this.listSubscription$ = this.listService.getLists().subscribe(result =>
+      {
+        this.lists = result;
+      });
+    });
+  }
+
   openDropdown(event: any){
     //Checken of er niet geklikt is op een a of ul tag
     if (event.target.tagName != 'A' && event.target.tagName != 'UL'){
@@ -67,5 +108,4 @@ export class SidebarComponent implements OnInit {
       }
     }
   }
-
 }

@@ -1,6 +1,22 @@
 <div class="list">
-  <h2 class="list-title">{{ list.name }}</h2>
-  <div cdkDropList (cdkDropListDropped)='drop($event)'>
-    <app-task *ngFor="let task of list.todo" [task]="task" cdkDrag></app-task>
+  <div class="row">
+    <h2 class="list-title">{{ list.name }}</h2>
+    <select name="sort" (change)='selectFilter($event)'>
+      <option value="date_asc">Date Asc</option>
+      <option value="date_desc">Date Desc</option>
+      <option value="own_order">Own order</option>
+    </select>
+  </div>
+  <div cdkDropList (cdkDropListDropped)='drop($event)' class="droplist">
+    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" [isEditable]="editables.indexOf(task.id) > -1" cdkDrag class="dropbox" (newTask)='refreshList($event)' (deleteTaskEvent)='deleteTask($event)'>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <i *ngIf='draggable' class="fas fa-grip-vertical dragger" cdkDragHandle></i>
+      <div *ngIf='!draggable' cdkDragHandle></div>
+    </app-task>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p class="add-task-button" (click)="new_task()"><i class="far fa-plus-square"></i></p>
+    </div>
   </div>
 </div>

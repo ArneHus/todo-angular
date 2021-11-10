@@ -11,21 +11,21 @@
                   <a href="#" (click)='allLists()'>
                       <i class="far fa-calendar-alt"></i>
                       <span class="menu-text">Overzicht</span>
-                      <span class="badge badge-pill">{{ categories | totalCount }}</span>
+                      <span class="badge badge-pill">{{ lists | totalCount }}</span>
                   </a>
               </li>
               <li>
                   <a href="#" (click)='allImportantLists()'>
                       <i class="far fa-star"></i>
                       <span class="menu-text">Belangrijk</span>
-                      <span class="badge badge-pill">{{ categories | totalImportantCount }}</span>
+                      <span class="badge badge-pill">{{ lists | totalImportantCount }}</span>
                   </a>
               </li>
               <li>
                   <a href="#" (click)='allWeeklyLists()'>
                       <i class="fas fa-calendar-week"></i>
                       <span class="menu-text">Deze week</span>
-                      <span class="badge badge-pill">{{ categories | totalThisWeekCount }}</span>
+                      <span class="badge badge-pill">{{ lists | totalThisWeekCount }}</span>
                   </a>
               </li>
               <hr>
@@ -36,11 +36,11 @@
                     <i class="fas fa-minus hidden"></i>
                   </span>
                   <span class="menu-text">{{ category.name }}</span>
-                  <span class="badge badge-pill">{{ category | todoCount }}</span>
+                  <span class="badge badge-pill">{{ lists | filterListsByCategory : category.id | todoCount}}</span>
                 </a>
                 <div class="sidebar-submenu">
                   <ul>
-                      <li *ngFor="let list of category.lists" (click)='changeList($event, category, list)'>
+                      <li *ngFor="let list of lists | filterListsByCategory : category.id" (click)='changeList($event, category, list)'>
                           <a href="#">
                               <i class="fas fa-chevron-right"></i>
                               <span>{{ list.name }}</span>
@@ -51,7 +51,7 @@
               </div>
             </li>
             <li>
-              <a href="#">
+              <a (click)='openNewCategoryDialog()'>
                 <i class="far fa-plus-square"></i>
                 <span class="menu-text">Nieuwe categorie</span>
               </a>
