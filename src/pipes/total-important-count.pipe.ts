@@ -11,7 +11,7 @@ export class TotalImportantCountPipe implements PipeTransform {
 
     value.forEach(list => {
       list.todo.forEach(todo => {
-        if (todo.isImportant){
+        if (todo.isImportant && !todo.finished){
           count++;
         }
       });

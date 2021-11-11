@@ -1,14 +1,14 @@
 <div class="page-wrapper toggled" id="page-wrapper">
   <app-sidebar (changedList)='setLists($event)' #sidebar></app-sidebar>
   <!-- page-content  -->
-  <main class="page-content" [ngStyle]="{'background-color': category.color}">
+  <main class="page-content" [ngStyle]="{'background-color': color}">
       <div class="container-fluid p-5">
           <div class="row">
               <div class="col-12">
                   <h2>
                     <span class="hr">
                       <i class="fas fa-bars" (click)='toggle_sidebar()'></i>
-                      <span> {{ category.name }} </span>
+                      <span> {{ categoryName }} </span>
                       <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu" *ngIf="showOptions"></i>
                     </span>
                   </h2>
@@ -30,7 +30,7 @@
           </div>
           <div class="row">
             <div class="col-10">
-              <app-list *ngFor="let list of lists" [list]="list" (updatedTask)="refreshSideBar()"></app-list>
+              <app-list *ngFor="let list of lists" [list]="list" (updatedTask)="refreshSideBar()" (deletedList)="refreshLists()" [color]='color'></app-list>
             </div>
           </div>
       </div>

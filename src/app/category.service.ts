@@ -33,4 +33,8 @@ export class CategoryService {
 
     return this.httpClient.put<Category>("http://localhost:3000/categories/" + id, category, {headers: headers});
   }
+
+  deleteCategory(id: number): Observable<Category> {
+    return this.httpClient.delete<Category>("http://localhost:3000/categories/" + id);
+  }
 }

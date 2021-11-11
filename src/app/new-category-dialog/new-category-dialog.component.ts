@@ -29,7 +29,6 @@ export class NewCategoryDialogComponent implements OnInit {
     }
   }
 
-  // reactive form
   categoryForm = new FormGroup({
     category: new FormControl(''),
     color: new FormControl('')

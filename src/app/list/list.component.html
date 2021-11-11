@@ -1,14 +1,24 @@
 <div class="list">
   <div class="row">
-    <h2 class="list-title">{{ list.name }}</h2>
-    <select name="sort" (change)='selectFilter($event)'>
+    <h2 class="list-title">{{ list.name }} <i class="fas fa-ellipsis-v list-menu" [matMenuTriggerFor]="menu"></i></h2>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="editListDialog()">
+        <i class="fas fa-edit"></i>
+        <span> Bewerken</span>
+      </button>
+      <button mat-menu-item (click)="deleteList()">
+        <i class="fas fa-trash-alt"></i>
+        <span> Verwijderen</span>
+      </button>
+    </mat-menu>
+    <select name="sort" (change)='selectFilter($event)' class="filter-select">
       <option value="date_asc">Date Asc</option>
       <option value="date_desc">Date Desc</option>
       <option value="own_order">Own order</option>
     </select>
   </div>
   <div cdkDropList (cdkDropListDropped)='drop($event)' class="droplist">
-    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" [isEditable]="editables.indexOf(task.id) > -1" cdkDrag class="dropbox" (newTask)='refreshList($event)' (deleteTaskEvent)='deleteTask($event)'>
+    <app-task *ngFor="let task of list.todo" [task]="task" [draggable]="draggable" [isEditable]="editables.indexOf(task.id) > -1" cdkDrag class="dropbox" (newTask)='refreshList($event)' (deleteTaskEvent)='deleteTask($event)' (updatedTaskEvent)='refreshSidebar()' [color]='color'>
       <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
       <i *ngIf='draggable' class="fas fa-grip-vertical dragger" cdkDragHandle></i>
       <div *ngIf='!draggable' cdkDragHandle></div>

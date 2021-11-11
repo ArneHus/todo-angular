@@ -1,0 +1,5 @@
+<p>{{ text }}</p>
+<mat-dialog-actions>
+  <button mat-dialog-close class="btn">Annuleren</button>
+  <button [mat-dialog-close]="false" class="btn btn-danger" (click)="delete()">Verwijderen</button>
+</mat-dialog-actions>

@@ -1,10 +1,14 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { AskConformationDialogComponent } from '../ask-conformation-dialog/ask-conformation-dialog.component';
 
 import { List } from '../list';
+import { ListService } from '../list.service';
+import { NewListDialogComponent } from '../new-list-dialog/new-list-dialog.component';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 
@@ -23,9 +27,13 @@ export class ListComponent implements OnInit {
   editables: Array<number> = [];
 
   @Input() list: List = { id: 0, name: "", categoryId: 0, todo: [] };
+  @Input() color: string = "";
 
   @Output()
   updatedTask: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  deletedList: EventEmitter<any> = new EventEmitter();
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.list.todo, event.previousIndex, event.currentIndex);
@@ -39,12 +47,13 @@ export class ListComponent implements OnInit {
     });
   }
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private listService: ListService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   new_task() {
+    this.editables = [];
     var finishDate = (moment(new Date())).format('DD/MM/yyyy')
     var task: Task = { id: 0, task: "", isImportant: false, finishDate: finishDate, finished: false, orderValue: this.list.todo.length + 1, listId: this.list.id };
     this.postTask$ = this.taskService.postTask(task).subscribe(result => {
@@ -88,6 +97,10 @@ export class ListComponent implements OnInit {
     this.updatedTask.emit();
   }
 
+  refreshSidebar(){
+    this.updatedTask.emit();
+  }
+
   deleteTask(event: any){
     this.taskService.deleteTask(event.task.id).subscribe(result => {
       this.list.todo = this.list.todo.filter(obj => obj !== event.task);
@@ -114,6 +127,29 @@ export class ListComponent implements OnInit {
         break;
       }
     }
+  }
+
+  deleteList(){
+    let dialogRef = this.matDialog.open(AskConformationDialogComponent, {
+      data: { listId: this.list.id },
+    });
+
+    dialogRef.componentInstance.deletedList.subscribe((data: any) => {
+      this.deletedList.emit();
+    });
+  }
+
+  editListDialog(){
+    let dialogRef = this.matDialog.open(NewListDialogComponent, {
+      data: { categoryId: this.list.categoryId, list: this.list },
+    });
+
+    dialogRef.componentInstance.updatedList.subscribe((data: any) => {
+      this.updatedTask.emit();
+      this.listService.getListById(this.list.id).subscribe(result => {
+        this.list = result;
+      });
+    });
   }
 
   sortOnDateAscFunction(a: Task, b: Task){

@@ -4,12 +4,12 @@
       <div class="col-1">
         <p>
           <ng-content></ng-content>
-          <i class="far fa-circle checkmark"></i>
+          <mat-checkbox (change)="setFinished()" [checked]="task.finished" class="ml-3 bg-color" [ngClass]="colorString"></mat-checkbox>
           <i class="far fa-save" *ngIf="isEditable" (click)="onSubmit()"></i>
         </p>
       </div>
-      <div class="col-7">
-        <p *ngIf="!isEditable">{{ task.task }}</p>
+      <div class="col-6">
+        <p *ngIf="!isEditable"><span [ngStyle]="crossed">{{ task.task }}</span></p>
         <div class="form-group" *ngIf="isEditable">
           <input type="text" class="form-control" id="task" name="task" placeholder="Taak" formControlName="task" minlength="2">
         </div>
@@ -20,9 +20,9 @@
           <input type="date" class="form-control" id="finishDate" name="finishDate" formControlName="finishDate" minlength="2">
         </div>
       </div>
-      <div class="col-1">
-        <p class="important" *ngIf="!task.isImportant"><i class="far fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu"></i></p>
-        <p class="important" *ngIf="task.isImportant"><i class="fas fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu"></i></p>
+      <div class="col-2">
+        <p class="important" *ngIf="!task.isImportant"><i class="far fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v task_menu" [matMenuTriggerFor]="menu"></i></p>
+        <p class="important" *ngIf="task.isImportant"><i class="fas fa-star" (click)="setImportant()"></i> <i class="fas fa-ellipsis-v task_menu" [matMenuTriggerFor]="menu"></i></p>
       </div>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="editTask()">

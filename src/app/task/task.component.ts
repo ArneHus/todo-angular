@@ -11,9 +11,13 @@ import * as moment from 'moment';
 })
 export class TaskComponent implements OnInit {
 
+  crossed!: {};
+  colorString: string = "";
+
   @Input() draggable: boolean = false;
   @Input() task: Task = { id: 0, task: "", isImportant: false, finishDate: "", finished: false, orderValue: 0, listId: 0 };
   @Input() isEditable: boolean = false;
+  @Input() color: string = "";
 
   @Output()
   newTask: EventEmitter<any> = new EventEmitter();
@@ -21,12 +25,28 @@ export class TaskComponent implements OnInit {
   @Output()
   deleteTaskEvent: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  updatedTaskEvent: EventEmitter<any> = new EventEmitter();
+
 
   setImportant(){
     this.task.isImportant = !this.task.isImportant
     this.taskService.putTask(this.task.id, this.task).subscribe(result => {
       //Task is updated
     });
+    this.updatedTaskEvent.emit();
+  }
+
+  setFinished(){
+    this.task.finished = !this.task.finished
+    this.taskService.putTask(this.task.id, this.task).subscribe(result => {
+      //Task is updated
+    });
+
+    this.crossed = {
+      "text-decoration": this.task.finished ? "line-through" : "none",
+    };
+    this.updatedTaskEvent.emit();
   }
 
   editTask(){
@@ -47,10 +67,19 @@ export class TaskComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
+    var date = moment(this.task.finishDate.toString()).format("yyyy-MM-DD").toString();
+
     this.taskForm.setValue({
       task: this.task.task,
-      finishDate: this.task.finishDate
+      finishDate: date
     });
+
+    this.crossed = {
+      "text-decoration": this.task.finished ? "line-through" : "none",
+    };
+
+    this.colorString = "color-" + this.color.substr(1);
+
   }
 
   onSubmit(): void {

@@ -1,0 +1,12 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="listForm">
+  <div class="form-group">
+    <label for="list">Lijst</label>
+    <input type="text" class="form-control" id="list" name="list" placeholder="Naam" formControlName="list" minlength="2">
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-dialog-close class="btn">Annuleren</button>
+    <button [mat-dialog-close]="false" class="btn" type="submit">Opslaan</button>
+  </mat-dialog-actions>
+
+</form>

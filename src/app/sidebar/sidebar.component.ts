@@ -67,7 +67,8 @@ export class SidebarComponent implements OnInit {
 
   openNewCategoryDialog(){
     let dialogRef = this.matDialog.open(NewCategoryDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.componentInstance.updatedCategory.subscribe((data: any) => {
       this.refreshCategories();
     });
   }
