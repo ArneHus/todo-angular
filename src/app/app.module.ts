@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ColorCircleModule } from 'ngx-color/circle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Components
 import { AppComponent } from './app.component';
@@ -53,7 +54,8 @@ import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.compon
     MatMenuModule,
     NgxMatColorPickerModule,
     MatDialogModule,
-    ColorCircleModule
+    ColorCircleModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     NewCategoryDialogComponent

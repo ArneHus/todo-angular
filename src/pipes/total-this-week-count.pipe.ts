@@ -18,7 +18,7 @@ export class TotalThisWeekCountPipe implements PipeTransform {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
 
-        if (publishDate < nextWeek && publishDate > yesterday){
+        if (publishDate < nextWeek && publishDate > yesterday && !todo.finished){
           count++;
         }
       });

@@ -21,7 +21,6 @@ export class AppComponent {
 
   title = 'todo';
   lists: Array<List> = [];
-  //category: Category = {id: 0, name: "", color: ""};
   categoryName: string = "";
   color: string = "";
   categoryId: number = 0;
@@ -45,7 +44,7 @@ export class AppComponent {
       });
 
       this.categoryName = "Overzicht";
-      this.color = "#1EB7C3";
+      this.color = "#00bcd4";
       this.showOptions = false;
     } else if (event.allImportantCategories){
       //Alle categoriën ophalen
@@ -55,7 +54,7 @@ export class AppComponent {
       });
 
       this.categoryName = "Belangrijk";
-      this.color = "#FF0000";
+      this.color = "#f44336";
       this.showOptions = false;
     }  else if (event.allWeeklyCategories){
       //Alle categoriën ophalen
@@ -65,7 +64,7 @@ export class AppComponent {
       });
 
       this.categoryName = "Deze week";
-      this.color = "#1EB7C3";
+      this.color = "#00bcd4";
       this.showOptions = false;
     } else {
       //Er wordt maar één lijst doorgegeven
@@ -181,6 +180,17 @@ export class AppComponent {
 
   refreshSideBar(){
     this.sidebar.refreshCategories();
+  }
+
+  refreshLists(){
+    this.lists = [];
+    this.listService.getListsFromCategory(this.categoryId).subscribe(result => {
+      result.forEach((list: List) => {
+        list.todo = list.todo.sort(this.sortOnDateFunction)
+        this.lists.push(list);
+      });
+    });
+    this.refreshSideBar();
   }
 
   addList(){

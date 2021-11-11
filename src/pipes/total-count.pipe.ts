@@ -11,7 +11,9 @@ export class TotalCountPipe implements PipeTransform {
 
     value.forEach(list => {
       list.todo.forEach(todo => {
-        count++;
+        if (!todo.finished){
+          count++;
+        }
       });
     });
 

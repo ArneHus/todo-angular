@@ -16,6 +16,10 @@ export class ListService {
     return this.httpClient.get<List[]>("http://localhost:3000/lists?_embed=todo");
   }
 
+  getListById(id: number): Observable<List> {
+    return this.httpClient.get<List>("http://localhost:3000/lists/" + id + "?_embed=todo");
+  }
+
   getListsFromCategory(categoryID: number): Observable<List[]> {
     return this.httpClient.get<List[]>("http://localhost:3000/lists?categoryId=" + categoryID + "&_embed=todo");
   }

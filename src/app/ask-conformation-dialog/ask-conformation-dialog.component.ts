@@ -12,29 +12,44 @@ import { TaskService } from '../task.service';
 })
 export class AskConformationDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { categoryId: number }, private categoryService: CategoryService, private listService: ListService, private taskService: TaskService, public dialogRef: MatDialogRef<AskConformationDialogComponent>) { }
+  text: string = "";
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { categoryId: number, listId: number }, private categoryService: CategoryService, private listService: ListService, private taskService: TaskService, public dialogRef: MatDialogRef<AskConformationDialogComponent>) { }
 
   @Output()
   deletedCategory: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  deletedList: EventEmitter<any> = new EventEmitter();
+
   ngOnInit(): void {
+    if (typeof this.data.categoryId !== 'undefined'){
+      this.text = "Deze actie zal ook alle taken en lijsten van deze categorie verwijderen.";
+    } else if (typeof this.data.listId !== 'undefined'){
+      this.text = "Deze actie zal ook alle taken van deze lijst verwijderen.";
+    }
   }
 
-  deleteCategory(){
-    this.deleteLists();
-    this.categoryService.deleteCategory(this.data.categoryId).subscribe(result => {
-      this.dialogRef.close();
-      this.deletedCategory.emit();
-    });
+  delete(){
+    if (typeof this.data.categoryId !== 'undefined'){
+      this.deleteLists();
+      this.categoryService.deleteCategory(this.data.categoryId).subscribe(result => {
+        this.dialogRef.close();
+        this.deletedCategory.emit();
+      });
+    } else if (typeof this.data.listId !== 'undefined'){
+      this.listService.deleteList(this.data.listId).subscribe(result => {
+        this.dialogRef.close();
+        this.deletedList.emit();
+      })
+    }
   }
 
   deleteLists(){
-    console.log("Ik ga lijsten verwijderen");
     this.listService.getListsFromCategory(this.data.categoryId).subscribe(result => {
-      console.log("Lijsten", result);
       result.forEach(list => {
         this.listService.deleteList(list.id).subscribe(deletedList => {
-          
+
         });
       });
     });
