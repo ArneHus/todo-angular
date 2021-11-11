@@ -25,6 +25,8 @@ import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe';
 import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
+import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
+import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { NewCategoryDialogComponent } from './new-category-dialog/new-category-d
     TotalThisWeekCountPipe,
     FilterListsByCategoryPipe,
     NewCategoryDialogComponent,
+    AskConformationDialogComponent,
+    NewListDialogComponent,
   ],
   imports: [
     BrowserModule,

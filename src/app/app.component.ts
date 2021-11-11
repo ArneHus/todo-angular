@@ -9,6 +9,8 @@ import { Subscription } from 'rxjs';
 import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
+import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,10 @@ export class AppComponent {
 
   title = 'todo';
   lists: Array<List> = [];
-  category: Category = {id: 0, name: "", color: ""};
+  //category: Category = {id: 0, name: "", color: ""};
+  categoryName: string = "";
+  color: string = "";
+  categoryId: number = 0;
   categories: Category[] = [];
   showOptions = false;
   categorySubscription$: Subscription = new Subscription();
@@ -39,8 +44,8 @@ export class AppComponent {
         this.listCategories();
       });
 
-      this.category.name = "Overzicht";
-      this.category.color = "#1EB7C3";
+      this.categoryName = "Overzicht";
+      this.color = "#1EB7C3";
       this.showOptions = false;
     } else if (event.allImportantCategories){
       //Alle categoriën ophalen
@@ -49,8 +54,8 @@ export class AppComponent {
         this.listImportantCategories();
       });
 
-      this.category.name = "Belangrijk";
-      this.category.color = "#FF0000";
+      this.categoryName = "Belangrijk";
+      this.color = "#FF0000";
       this.showOptions = false;
     }  else if (event.allWeeklyCategories){
       //Alle categoriën ophalen
@@ -59,16 +64,17 @@ export class AppComponent {
         this.listWeeklyCategories();
       });
 
-      this.category.name = "Deze week";
-      this.category.color = "#1EB7C3";
+      this.categoryName = "Deze week";
+      this.color = "#1EB7C3";
       this.showOptions = false;
     } else {
       //Er wordt maar één lijst doorgegeven
       if (event.singleList != undefined){
         event.singleList.todo = event.singleList.todo.sort(this.sortOnDateFunction)
         this.lists.push(event.singleList);
-        this.category = event.category;
-        this.showOptions = true;
+        this.categoryName = event.category.name;
+        this.color = event.category.color;
+        this.showOptions = false;
       //Er wordt één categorie doorgegeven
       } else {
         this.listService.getListsFromCategory(event.category.id).subscribe(result => {
@@ -76,7 +82,9 @@ export class AppComponent {
             list.todo = list.todo.sort(this.sortOnDateFunction)
             this.lists.push(list);
           });
-          this.category = event.category;
+          this.categoryName = event.category.name;
+          this.color = event.category.color;
+          this.categoryId = event.category.id;
           this.showOptions = true;
         });
       }
@@ -176,23 +184,50 @@ export class AppComponent {
   }
 
   addList(){
+    let dialogRef = this.matDialog.open(NewListDialogComponent, {
+      data: { categoryId: this.categoryId },
+    });
 
+    dialogRef.componentInstance.updatedList.subscribe((data: any) => {
+      this.sidebar.refreshCategories();
+      this.listService.getListsFromCategory(this.categoryId).subscribe(result => {
+        this.lists = result;
+      });
+    });
   }
 
   editCategoryDialog(){
+    const category: Category = {id: this.categoryId, name: this.categoryName, color: this.color};
     let dialogRef = this.matDialog.open(NewCategoryDialogComponent, {
-      data: { category: this.category },
+      data: { category: category },
     });
 
     dialogRef.componentInstance.updatedCategory.subscribe((data: any) => {
       this.sidebar.refreshCategories();
-      this.categoryService.getCategoryById(this.category.id).subscribe(result => {
-        this.category = result;
+      this.categoryService.getCategoryById(this.categoryId).subscribe(result => {
+        this.categoryName = result.name;
+        this.color = result.color;
       });
     });
   }
 
   askDeleteCategory(){
+    let dialogRef = this.matDialog.open(AskConformationDialogComponent, {
+      data: { categoryId: this.categoryId },
+    });
 
+    dialogRef.componentInstance.deletedCategory.subscribe((data: any) => {
+      this.sidebar.refreshCategories();
+
+      //Alle categoriën ophalen
+      this.categoryService.getCategories().subscribe(result => {
+        this.categories = result
+        this.listCategories();
+      });
+
+      this.categoryName = "Overzicht";
+      this.color = "#1EB7C3";
+      this.showOptions = false;
+    });
   }
 }

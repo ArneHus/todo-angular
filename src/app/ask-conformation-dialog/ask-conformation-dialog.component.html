@@ -1,0 +1,5 @@
+<p>Deze actie zal ook alle taken en lijsten van deze categorie verwijderen.</p>
+<mat-dialog-actions>
+  <button mat-dialog-close class="btn">Annuleren</button>
+  <button [mat-dialog-close]="false" class="btn btn-danger" (click)="deleteCategory()">Verwijderen</button>
+</mat-dialog-actions>
