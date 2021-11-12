@@ -45,4 +45,35 @@
     margin-left: 20%;
     color: darkgray;
   }
+
+  input {
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid black;
+
+    &[type=text]{
+      font-size: 20px;
+      font-family: $font-family-sans-serif;
+      width: 90%;
+    }
+
+    &[type=date]{
+      color: darkgrey;
+      border-bottom: 1px solid darkgrey;
+
+      &::-webkit-calendar-picker-indicator{
+        margin-left: -20px;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .mat-checkbox {
+    font-size: 16px;
+    vertical-align: text-top;
+  }
+
+  .save-icon {
+    margin-right: 40%;
+  }
 }

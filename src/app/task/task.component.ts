@@ -3,6 +3,7 @@ import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-task',
@@ -51,6 +52,13 @@ export class TaskComponent implements OnInit {
 
   editTask(){
     this.isEditable = !this.isEditable;
+
+    var date = moment(this.task.finishDate.toString(), "DD/MM/yyyy").format("yyyy-MM-DD");
+
+    this.taskForm.setValue({
+      task: this.task.task,
+      finishDate: date
+    });
   }
 
   deleteTask(){
@@ -67,13 +75,6 @@ export class TaskComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    var date = moment(this.task.finishDate.toString()).format("yyyy-MM-DD").toString();
-
-    this.taskForm.setValue({
-      task: this.task.task,
-      finishDate: date
-    });
-
     this.crossed = {
       "text-decoration": this.task.finished ? "line-through" : "none",
     };

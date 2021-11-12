@@ -7,9 +7,9 @@
               <div class="col-12">
                   <h2>
                     <span class="hr">
-                      <i class="fas fa-bars" (click)='toggle_sidebar()'></i>
-                      <span> {{ categoryName }} </span>
-                      <i class="fas fa-ellipsis-v" [matMenuTriggerFor]="menu" *ngIf="showOptions"></i>
+                      <i class="fas fa-bars sidebar-icon" (click)='toggle_sidebar()'></i>
+                      <span class="ml-3">{{ categoryName }} </span>
+                      <i class="fas fa-ellipsis-v category-menu" [matMenuTriggerFor]="menu" *ngIf="showOptions"></i>
                     </span>
                   </h2>
               </div>
