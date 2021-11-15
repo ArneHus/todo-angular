@@ -8,14 +8,16 @@
   font-family: $font-family-sans-serif;
   font-weight: 400;
   font-size: 1.75rem;
+  margin: 0;
 }
 
 .dragger {
   margin-left: 5px;
   color: darkgray;
-  font-size: 15px;
+  font-size: 16px;
   cursor: grab;
-  display: inline-block;
+  vertical-align: middle;
+  height: 22px;
 }
 
 .droplist {
@@ -66,6 +68,7 @@
   height: 20px;
   margin-left: 20px;
   margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -73,5 +76,73 @@ h2 {
 }
 
 .list-menu {
-  font-size: 12px;
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+.w-80 {
+  max-width: 80%;
+}
+
+@media only screen and (max-width: 825px) {
+  .list {
+    margin-bottom: 1rem;
+  }
+
+  .list-title {
+    font-size: 1.2rem;
+  }
+
+  .list {
+    .add-task-button {
+      height: 15px;
+    }
+
+    .add-task-button {
+      color: lightgrey;
+      font-size: 1.2rem;
+      text-align: center;
+      width: 90%;
+    }
+
+    i:hover {
+      color: darkgray;
+    }
+  }
+
+  .filter-select {
+    font-size: 12px;
+    height: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .w-80 {
+    max-width: 90%;
+  }
+}
+
+@media only screen and (max-width: 715px) {
+  .list {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 545px) {
+  .list {
+    .add-task-button {
+      width: 100%;
+    }
+  }
+
+  .w-80 {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .w-80 {
+    max-width: 95%;
+  }
 }

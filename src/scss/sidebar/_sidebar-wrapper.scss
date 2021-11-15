@@ -1,10 +1,10 @@
 .sidebar-wrapper {
-    width: $sidebar-width;
+    width: 280px;
     height: 100%;
     max-height: 100%;
     position: fixed;
     top: 0;
-    left: -$sidebar-width;
+    left: -280px;
     z-index: 999;
     transition: left .3s ease, width .3s ease;
     border-right: lightgrey 1px solid;
@@ -64,6 +64,22 @@
         bottom: 0;
         left: 0;
     }
+}
+
+@media only screen and (max-width: 825px) {
+  .sidebar-wrapper {
+    width: 180px;
+    left: -180px;
+
+    .sidebar-content {
+      .sidebar-title {
+        font-size: 1.3rem;
+      }
+  }
+    .badge {
+      font-size: 10px;
+    }
+  }
 }
 
 @import "./sidebar-menu";
