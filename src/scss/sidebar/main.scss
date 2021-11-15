@@ -23,8 +23,18 @@ body {
         }
 
         .page-content {
-          margin-left: $sidebar-width;
+          margin-left: 280px;
         }
     }
 
+}
+
+@media only screen and (max-width: 825px) {
+  .page-wrapper {
+    &.toggled {
+      .page-content {
+        margin-left: 180px;
+      }
+    }
+  }
 }

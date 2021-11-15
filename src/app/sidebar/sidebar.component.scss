@@ -11,15 +11,6 @@
   cursor: pointer;
 }
 
-// #sidebar {
-//   &::-webkit-scrollbar {
-//     display: none; /* Hide scrollbar for Chrome, Safari and Opera */
-//   }
-
-//   -ms-overflow-style: none;  /* IE and Edge */
-//   scrollbar-width: none;  /* Firefox */
-// }
-
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
@@ -38,4 +29,12 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
+}
+
+@media only screen and (max-width: 825px) {
+  .sidebar-title p {
+    padding-top: 15px;
+    padding-bottom: 8px;
+    margin-bottom: 0;
+  }
 }

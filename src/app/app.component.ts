@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
 import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
+import { HostListener } from "@angular/core"
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
   lists: Array<List> = [];
   categoryName: string = "";
   color: string = "";
+  currentStyles!: {};
   categoryId: number = 0;
   categories: Category[] = [];
   showOptions = false;
@@ -32,6 +34,14 @@ export class AppComponent {
   @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
 
   constructor(private categoryService: CategoryService, private listService: ListService, private matDialog: MatDialog) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    this.currentStyles = {
+      "background-color": this.color,
+      "width": window.innerWidth.toString() + 'px'
+    };
+  }
 
   setLists(event: any){
     this.lists = [];
@@ -45,6 +55,10 @@ export class AppComponent {
 
       this.categoryName = "Overzicht";
       this.color = "#00bcd4";
+      this.currentStyles = {
+        "background-color": this.color,
+        "width": window.innerWidth.toString + 'px'
+      };
       this.showOptions = false;
     } else if (event.allImportantCategories){
       //Alle categoriën ophalen
@@ -55,6 +69,10 @@ export class AppComponent {
 
       this.categoryName = "Belangrijk";
       this.color = "#f44336";
+      this.currentStyles = {
+        "background-color": this.color,
+        "width": window.innerWidth.toString + 'px'
+      };
       this.showOptions = false;
     }  else if (event.allWeeklyCategories){
       //Alle categoriën ophalen
@@ -65,6 +83,10 @@ export class AppComponent {
 
       this.categoryName = "Deze week";
       this.color = "#00bcd4";
+      this.currentStyles = {
+        "background-color": this.color,
+        "width": window.innerWidth.toString + 'px'
+      };
       this.showOptions = false;
     } else {
       //Er wordt maar één lijst doorgegeven
@@ -73,6 +95,10 @@ export class AppComponent {
         this.lists.push(event.singleList);
         this.categoryName = event.category.name;
         this.color = event.category.color;
+        this.currentStyles = {
+          "background-color": this.color,
+          "width": window.innerWidth.toString + 'px'
+        };
         this.showOptions = false;
       //Er wordt één categorie doorgegeven
       } else {
@@ -83,6 +109,10 @@ export class AppComponent {
           });
           this.categoryName = event.category.name;
           this.color = event.category.color;
+          this.currentStyles = {
+            "background-color": this.color,
+            "width": window.innerWidth.toString + 'px'
+          };
           this.categoryId = event.category.id;
           this.showOptions = true;
         });
@@ -217,6 +247,10 @@ export class AppComponent {
       this.categoryService.getCategoryById(this.categoryId).subscribe(result => {
         this.categoryName = result.name;
         this.color = result.color;
+        this.currentStyles = {
+          "background-color": this.color,
+          "width": window.innerWidth.toString + 'px'
+        };
       });
     });
   }
@@ -237,6 +271,10 @@ export class AppComponent {
 
       this.categoryName = "Overzicht";
       this.color = "#1EB7C3";
+      this.currentStyles = {
+        "background-color": this.color,
+        "width": window.innerWidth.toString + 'px'
+      };
       this.showOptions = false;
     });
   }
