@@ -9,36 +9,39 @@ import { Observable } from 'rxjs';
 })
 export class ListService {
 
+  // url: string = "http://localhost:3000";
+  url: string = "https://todo-angular.loca.lt";
+
   constructor(private httpClient: HttpClient) {
   }
 
   getLists(): Observable<List[]> {
-    return this.httpClient.get<List[]>("http://localhost:3000/lists?_embed=todo");
+    return this.httpClient.get<List[]>(this.url + "/lists?_embed=todo");
   }
 
   getListById(id: number): Observable<List> {
-    return this.httpClient.get<List>("http://localhost:3000/lists/" + id + "?_embed=todo");
+    return this.httpClient.get<List>(this.url + "/lists/" + id + "?_embed=todo");
   }
 
   getListsFromCategory(categoryID: number): Observable<List[]> {
-    return this.httpClient.get<List[]>("http://localhost:3000/lists?categoryId=" + categoryID + "&_embed=todo");
+    return this.httpClient.get<List[]>(this.url + "/lists?categoryId=" + categoryID + "&_embed=todo");
   }
 
   postList(list: List): Observable<List> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
-    return this.httpClient.post<List>("http://localhost:3000/lists", list, {headers: headers});
+    return this.httpClient.post<List>(this.url + "/lists", list, {headers: headers});
   }
 
   putList(id:number, list: List): Observable<List> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
-    return this.httpClient.put<List>("http://localhost:3000/lists/" + id, list, {headers: headers});
+    return this.httpClient.put<List>(this.url + "/lists/" + id, list, {headers: headers});
   }
 
   deleteList(id: number): Observable<List> {
-    return this.httpClient.delete<List>("http://localhost:3000/lists/" + id);
+    return this.httpClient.delete<List>(this.url + "/lists/" + id);
   }
 }
