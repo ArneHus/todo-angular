@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "start npm run api && start ng serve -o --port 5878",
+    "start": "start npm run api && start ng serve -o --port 5878 && start npm run localtunnel",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "api": "json-server --watch json-server-local\\db.json --routes json-server-local\\routes.json"
+    "api": "json-server --watch json-server-local\\db.json --routes json-server-local\\routes.json",
+    "localtunnel": "lt --port 3000 --subdomain 'todo-angular'"
   },
   "private": true,
   "dependencies": {
