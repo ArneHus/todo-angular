@@ -1,63 +1,74 @@
 <nav id="sidebar" class="sidebar-wrapper">
   <div class="sidebar-content">
-      <!-- sidebar-brand  -->
-      <div class="sidebar-item sidebar-title">
-          <p>Todo App</p>
-      </div>
-      <!-- sidebar-menu  -->
-      <div class="sidebar-item sidebar-menu">
-          <ul>
-              <li>
-                  <a href="#" (click)='allLists()'>
-                      <i class="far fa-calendar-alt"></i>
-                      <span class="menu-text">Overzicht</span>
-                      <span class="badge badge-pill">{{ lists | totalCount }}</span>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" (click)='allImportantLists()'>
-                      <i class="far fa-star"></i>
-                      <span class="menu-text">Belangrijk</span>
-                      <span class="badge badge-pill">{{ lists | totalImportantCount }}</span>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" (click)='allWeeklyLists()'>
-                      <i class="fas fa-calendar-week"></i>
-                      <span class="menu-text">Deze week</span>
-                      <span class="badge badge-pill">{{ lists | totalThisWeekCount }}</span>
-                  </a>
-              </li>
-              <hr>
-              <li *ngFor="let category of categories" class="sidebar-dropdown">
-                <a href="#" (click)='changeList($event, category, undefined)'>
-                  <span (click)="openDropdown($event)">
-                    <i class="fas fa-sort-down"></i>
-                    <i class="fas fa-minus hidden"></i>
-                  </span>
-                  <span class="menu-text">{{ category.name }}</span>
-                  <span class="badge badge-pill">{{ lists | filterListsByCategory : category.id | todoCount}}</span>
+    <!-- sidebar-brand  -->
+    <div class="sidebar-item sidebar-title">
+      <p>Todo App</p>
+    </div>
+    <!-- sidebar-menu  -->
+    <div class="sidebar-item sidebar-menu">
+      <ul>
+        <li>
+          <a href="#" (click)="allLists()">
+            <i class="far fa-calendar-alt"></i>
+            <span class="menu-text">Overzicht</span>
+            <span class="badge badge-pill">{{ lists | totalCount }}</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="allImportantLists()">
+            <i class="far fa-star"></i>
+            <span class="menu-text">Belangrijk</span>
+            <span class="badge badge-pill">{{
+              lists | totalImportantCount
+            }}</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" (click)="allWeeklyLists()">
+            <i class="fas fa-calendar-week"></i>
+            <span class="menu-text">Deze week</span>
+            <span class="badge badge-pill">{{
+              lists | totalThisWeekCount
+            }}</span>
+          </a>
+        </li>
+        <hr />
+        <li *ngFor="let category of categories" class="sidebar-dropdown">
+          <a href="#" (click)="changeList($event, category, undefined)">
+            <span (click)="openDropdown($event)">
+              <i class="fas fa-sort-down"></i>
+              <i class="fas fa-minus hidden"></i>
+            </span>
+            <span class="menu-text">{{ category.name }}</span>
+            <span class="badge badge-pill">{{
+              lists | filterListsByCategory: category.id | todoCount
+            }}</span>
+          </a>
+          <div class="sidebar-submenu">
+            <ul>
+              <li
+                *ngFor="let list of lists | filterListsByCategory: category.id"
+                (click)="changeList($event, category, list)"
+              >
+                <a href="#">
+                  <i class="fas fa-chevron-right"></i>
+                  <span>{{ list.name }}</span>
+                  <span class="badge badge-pill">{{
+                    list | todoCountList
+                  }}</span>
                 </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                      <li *ngFor="let list of lists | filterListsByCategory : category.id" (click)='changeList($event, category, list)'>
-                          <a href="#">
-                              <i class="fas fa-chevron-right"></i>
-                              <span>{{ list.name }}</span>
-                              <span class="badge badge-pill">{{ list.todo.length }}</span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-            </li>
-            <li>
-              <a (click)='openNewCategoryDialog()' class="nieuwe-categorie">
-                <i class="far fa-plus-square"></i>
-                <span class="menu-text">Nieuwe categorie</span>
-              </a>
-            </li>
-            <hr>
-          </ul>
-      </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a (click)="openNewCategoryDialog()" class="nieuwe-categorie">
+            <i class="far fa-plus-square"></i>
+            <span class="menu-text">Nieuwe categorie</span>
+          </a>
+        </li>
+        <hr />
+      </ul>
+    </div>
   </div>
 </nav>
