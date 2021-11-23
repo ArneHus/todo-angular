@@ -7,7 +7,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 //Material
 import { MatMenuModule } from '@angular/material/menu';
-import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import {
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+  NGX_MAT_COLOR_FORMATS,
+} from '@angular-material-components/color-picker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ColorCircleModule } from 'ngx-color/circle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -23,11 +27,12 @@ import { TodoCountPipe } from '../pipes/todo-count.pipe';
 import { TotalCountPipe } from '../pipes/total-count.pipe';
 import { TotalImportantCountPipe } from '../pipes/total-important-count.pipe';
 import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe';
-import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe'
+import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
 import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
 import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
+import { TodoCountListPipe } from '../pipes/todo-count-list.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,7 @@ import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.compon
     NewCategoryDialogComponent,
     AskConformationDialogComponent,
     NewListDialogComponent,
+    TodoCountListPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,12 +61,10 @@ import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.compon
     NgxMatColorPickerModule,
     MatDialogModule,
     ColorCircleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
-  entryComponents: [
-    NewCategoryDialogComponent
-  ],
+  entryComponents: [NewCategoryDialogComponent],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
