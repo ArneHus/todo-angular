@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@import "../../scss/variables";
 
 .list {
   margin-bottom: 2rem;
@@ -73,6 +73,7 @@
 
 h2 {
   font-size: 16px;
+  padding-bottom: 0.5rem;
 }
 
 .list-menu {
@@ -96,17 +97,15 @@ h2 {
   .list {
     .add-task-button {
       height: 15px;
-    }
-
-    .add-task-button {
       color: lightgrey;
-      font-size: 1.2rem;
       text-align: center;
       width: 90%;
     }
-
-    i:hover {
-      color: darkgray;
+    &:hover {
+      .add-task-button {
+        font-size: 1.2rem;
+        width: 90%;
+      }
     }
   }
 
