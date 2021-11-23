@@ -1,12 +1,12 @@
 import { OnInit, Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import * as $ from "jquery";
 import { Subscription } from 'rxjs';
-import { Category } from '../category';
-import { CategoryService } from '../category.service';
-import { ListService } from '../list.service';
-import { List } from '../list';
+import { Category } from '../category/category';
+import { CategoryService } from '../category/category.service';
+import { ListService } from '../list/list.service';
+import { List } from '../list/list';
 import { MatDialog } from '@angular/material/dialog';
-import { NewCategoryDialogComponent } from '../new-category-dialog/new-category-dialog.component';
+import { NewCategoryDialogComponent } from '../dialog/new-category-dialog/new-category-dialog.component';
 
 @Component({
   selector: 'app-sidebar',

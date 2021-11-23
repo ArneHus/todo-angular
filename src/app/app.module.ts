@@ -19,8 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 // Components
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ListComponent } from './list/list.component';
-import { TaskComponent } from './task/task.component';
+import { ListComponent } from './list/list/list.component';
+import { TaskComponent } from './task/task/task.component';
 
 // Pipes
 import { TodoCountPipe } from '../pipes/todo-count.pipe';
@@ -29,9 +29,9 @@ import { TotalImportantCountPipe } from '../pipes/total-important-count.pipe';
 import { TotalThisWeekCountPipe } from '../pipes/total-this-week-count.pipe';
 import { FilterListsByCategoryPipe } from '../pipes/filter-lists-by-category.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
-import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
-import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
+import { NewCategoryDialogComponent } from './dialog/new-category-dialog/new-category-dialog.component';
+import { AskConformationDialogComponent } from './dialog/ask-conformation-dialog/ask-conformation-dialog.component';
+import { NewListDialogComponent } from './dialog/new-list-dialog/new-list-dialog.component';
 import { TodoCountListPipe } from '../pipes/todo-count-list.pipe';
 
 @NgModule({

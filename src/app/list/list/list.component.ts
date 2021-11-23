@@ -4,13 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { AskConformationDialogComponent } from '../ask-conformation-dialog/ask-conformation-dialog.component';
+import { AskConformationDialogComponent } from '../../dialog/ask-conformation-dialog/ask-conformation-dialog.component';
 
 import { List } from '../list';
 import { ListService } from '../list.service';
-import { NewListDialogComponent } from '../new-list-dialog/new-list-dialog.component';
-import { Task } from '../task';
-import { TaskService } from '../task.service';
+import { NewListDialogComponent } from '../../dialog/new-list-dialog/new-list-dialog.component';
+import { Task } from '../../task/task';
+import { TaskService } from '../../task/task.service';
 
 @Component({
   selector: 'app-list',

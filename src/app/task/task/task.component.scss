@@ -1,5 +1,5 @@
-@import '../../scss/variables';
-@import '../../scss/colors';
+@import "../../../scss/variables";
+@import "../../../scss/colors";
 
 .task {
   background-color: #fff;
@@ -51,17 +51,17 @@
     border: none;
     border-bottom: 1px solid black;
 
-    &[type=text]{
+    &[type="text"] {
       font-size: 20px;
       font-family: $font-family-sans-serif;
       width: 90%;
     }
 
-    &[type=date]{
+    &[type="date"] {
       color: darkgrey;
       border-bottom: 1px solid darkgrey;
 
-      &::-webkit-calendar-picker-indicator{
+      &::-webkit-calendar-picker-indicator {
         margin-left: -20px;
         opacity: 0.4;
       }
@@ -111,8 +111,7 @@
     }
 
     input {
-
-      &[type=text]{
+      &[type="text"] {
         font-size: 14px;
       }
     }

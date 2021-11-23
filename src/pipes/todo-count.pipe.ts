@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { List } from '../app/list';
+import { List } from 'src/app/list/list';
 
 @Pipe({
   name: 'todoCount'

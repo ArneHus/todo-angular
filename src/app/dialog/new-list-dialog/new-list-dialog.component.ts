@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { List } from '../list';
-import { ListService } from '../list.service';
+import { List } from '../../list/list';
+import { ListService } from '../../list/list.service';
 
 @Component({
   selector: 'app-new-list-dialog',

@@ -3,7 +3,6 @@ import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task',

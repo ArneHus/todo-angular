@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from '../category';
-import { CategoryService } from '../category.service';
-import { ListService } from '../list.service';
-import { TaskService } from '../task.service';
+import { Category } from '../../category/category';
+import { CategoryService } from '../../category/category.service';
+import { ListService } from '../../list/list.service';
+import { TaskService } from '../../task/task.service';
 
 @Component({
   selector: 'app-ask-conformation-dialog',

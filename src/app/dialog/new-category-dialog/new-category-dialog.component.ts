@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Category } from '../category';
-import { CategoryService } from '../category.service';
+import { Category } from '../../category/category';
+import { CategoryService } from '../../category/category.service';
 
 @Component({
   selector: 'app-new-category-dialog',
