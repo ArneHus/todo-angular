@@ -1,5 +1,4 @@
-import { Task } from "./task";
-import { Category } from "./category";
+import { Task } from "../task/task";
 
 export interface List {
   id: number;

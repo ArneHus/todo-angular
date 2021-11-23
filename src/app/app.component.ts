@@ -1,16 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { List } from './list';
-import { Task } from './task';
-import { CategoryService } from './category.service';
-import { Category } from './category';
+import { List } from './list/list';
+import { Task } from './task/task';
+import { CategoryService } from './category/category.service';
+import { Category } from './category/category';
 import * as moment from 'moment';
-import { ListService } from './list.service';
+import { ListService } from './list/list.service';
 import { Subscription } from 'rxjs';
-import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
+import { NewCategoryDialogComponent } from './dialog/new-category-dialog/new-category-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { AskConformationDialogComponent } from './ask-conformation-dialog/ask-conformation-dialog.component';
-import { NewListDialogComponent } from './new-list-dialog/new-list-dialog.component';
+import { AskConformationDialogComponent } from './dialog/ask-conformation-dialog/ask-conformation-dialog.component';
+import { NewListDialogComponent } from './dialog/new-list-dialog/new-list-dialog.component';
 import { HostListener } from "@angular/core"
 
 @Component({
